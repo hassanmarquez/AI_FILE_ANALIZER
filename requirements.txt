@@ -1,0 +1,8 @@
+# The following dependencies should be installed in the environment used
+
+streamlit
+langchain_community
+langchain_openai
+AzureOpenAI
+pypdf
+sentence-transformers
