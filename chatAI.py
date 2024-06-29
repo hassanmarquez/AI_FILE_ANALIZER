@@ -13,18 +13,25 @@ import streamlit as st
 from langchain_openai import AzureOpenAI
 import os
 from langchain_openai import AzureChatOpenAI
+from dotenv import load_dotenv
 
-
+# load environment vars
+load_dotenv()
 
 #----------------------------------------------------
-os.environ["AZURE_OPENAI_ENDPOINT"] = ""
-os.environ["AZURE_OPENAI_API_KEY"] = ""
-
+# Initialize the LLMClient instance
+azure_endpoint= os.getenv("AZURE_OPENAI_ENDPOINT")
+azure_key= os.getenv("AZURE_OPENAI_API_KEY")
+openai_model= os.getenv("OPEN_AI_MODEL")
+openai_API= os.getenv("OPENAI_API_VERSION")
+ll_embeding_model= os.getenv("EMBEDDING_MODEL")
+#----------------------------------------------------
 llm=AzureChatOpenAI(
-    azure_deployment="gpt-35-turbo-0613",
-    openai_api_version="2023-07-01-preview",
+    azure_deployment=openai_model,
+    openai_api_version=openai_API,
 )
 #----------------------------------------------------
+
 # This function Loads a PDF of your chosing
 @st.cache_resource
 def load_pdf():
@@ -33,7 +40,7 @@ def load_pdf():
     loaders = [PyPDFLoader (pdf_name) ]
     # Create index - aka vector database - aka chromadb
     index = VectorstoreIndexCreator(
-        embedding = HuggingFaceEmbeddings(model_name='all-miniLM-L12-v2'),
+        embedding = HuggingFaceEmbeddings(model_name=ll_embeding_model),
         text_splitter=RecursiveCharacterTextSplitter (chunk_size=700, chunk_overlap=1)
     ).from_loaders(loaders)
     # Retun the vector database

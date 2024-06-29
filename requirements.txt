@@ -1,8 +1,12 @@
-# The following dependencies should be installed in the environment used
-
+# The following dependencies have to be installed using the command "pip install -r requirements.txt", means it will take the requirements file to know the dependencies, the following is the list of libraries:
+openai
 streamlit
-langchain_community
-langchain_openai
-AzureOpenAI
-pypdf
-sentence-transformers
+python-dotenv
+PyPDF2
+st-pages
+chromadb
+Matplotlib
+plotly
+azure-cognitiveservices-speech
+google-generativeai
+python-dotenv
